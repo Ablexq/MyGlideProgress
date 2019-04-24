@@ -19,7 +19,16 @@ implementation 'com.github.chrisbanes:PhotoView:2.1.4'
 
 [responsebody.contentLength()获取到的值为-1](https://blog.csdn.net/z_sawyer/article/details/78668790)
 
-
+``` 
+.addInterceptor(new Interceptor() {
+    @Override
+    public Response intercept(Chain chain) throws IOException {
+        Request.Builder builder = chain.request().newBuilder();
+        builder.addHeader("Accept-Encoding", "identity");//强迫服务器不走压缩
+        return chain.proceed(builder.build());
+    }
+})
+```
 
 
 
